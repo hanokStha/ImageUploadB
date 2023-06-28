@@ -26,7 +26,19 @@ router.post("/add", upload.single("image"), (req, res) => {
 
   // Process the image file as needed (e.g., save the image filename in the database)
 
-  res.json({ message: "Image uploaded successfully" });
+  // Retrieve file details
+  const { originalname, filename, mimetype, size } = req.file;
+
+  // Send the file details as the response
+  res.json({
+    message: "Image uploaded successfully",
+    file: {
+      originalname,
+      filename,
+      mimetype,
+      size,
+    },
+  });
 });
 
 // Serve static files
